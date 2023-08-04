@@ -21,6 +21,25 @@
         </ul>
     </div>
     <div class="w-full">
-
+        @foreach ($threads as $thread)
+            <div class="rounded-md bg-gradient-to-r from-slate-800 to-slate-900 hover:to-slate-800 mb-4">
+                <div class="p-4 flex gap-4">
+                    <div>Imagen</div>
+                    <div class="w-full">
+                        <h2 class="mb-4 flex items-start justify-between">
+                            <a href="" class="text-xl font-semibold text-white/90">{{ $thread->title }}</a>
+                            <span class="rounded-full text-xs py-2 px-4 capitalize" style="color: #ffffff; border: 1px solid #ffffff">Categoría</span>
+                        </h2>
+                        <p class="flex items-center justify-between w-full text-xs">
+                            <span class="text-blue-600 font-semibold">
+                                Usuario
+                                <span class="text-sky-400">{{ $thread->created_at->diffForHumans() }}</span>
+                            </span>
+                            <span class="text-slate-700">Respuestas y botón</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        @endforeach
     </div>
 </div>
