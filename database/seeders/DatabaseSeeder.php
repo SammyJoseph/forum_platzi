@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
         ]);
         \App\Models\User::factory(9)->create();
 
-        \App\Models\Category::factory(10)->create();
+        // threads debe ser un método de relación en el modelo Category para que hasThreads() funcione
+        \App\Models\Category::factory(10)->hasThreads(20)->create(); // cada categoria tendrá 20 preguntas
     }
 }
