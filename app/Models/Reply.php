@@ -9,10 +9,14 @@ class Reply extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['thread_id', 'body'];
+    protected $fillable = ['reply_id', 'thread_id', 'body'];
 
     public function user(){
         return $this->belongsTo(User::class); // una respuesta pertenece a un usuario
+    }
+
+    public function thread(){
+        return $this->belongsTo(Thread::class); // una respuesta pertenece a una pregunta
     }
 
     public function replies(){

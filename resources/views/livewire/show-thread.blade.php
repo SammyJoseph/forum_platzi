@@ -20,17 +20,17 @@
         </div>
     </div>
 
-    {{-- Respuestas --}}
-    @foreach ($replies as $reply)
-        {{-- Llamando a un componente de livewire y enviando el parámetro reply --}}
-        @livewire('show-reply', ['reply' => $reply], key('reply-' . $reply->id))
-    @endforeach
-
     {{-- Formulario de respuesta --}}
-    <form wire:submit.prevent="postReply">
+    <form wire:submit.prevent="postReply" class="mb-4">
         <input type="text" 
             class="bg-slate-800 border-0 rounded-md w-full p-3 text-white/60 text-xs" 
             placeholder="Escribe una respuesta..." 
             wire:model.defer="body">
     </form>
+
+    {{-- Respuestas --}}
+    @foreach ($replies as $reply)
+        {{-- Llamando a un componente de livewire y enviando el parámetro reply --}}
+        @livewire('show-reply', ['reply' => $reply], key('reply-' . $reply->id))
+    @endforeach
 </div>

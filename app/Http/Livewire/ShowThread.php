@@ -17,9 +17,8 @@ class ShowThread extends Component
 
     public function render()
     {   
-        
         /* whereNull() es para obtener solo las respuestas que son padres ya que el campo reply_id en la bd solo tiene información cuando es una respuesta hija */
-        $replies = $this->thread->replies()->whereNull('reply_id')->get(); // se obtienen las respuestas de la pregunta
+        $replies = $this->thread->replies()->whereNull('reply_id')->latest()->get(); // se obtienen las respuestas de la pregunta
         
         return view('livewire.show-thread', compact('replies'));
     }
@@ -38,9 +37,5 @@ class ShowThread extends Component
 
         // refrescar
         $this->body = "";
-
-        $this->thread = $this->thread->fresh(); // actualiza la instancia del modelo $thread
-
-        $this->emit('reply-posted'); // emite un evento para que sea escuchado por el componente padre
     }
 }
