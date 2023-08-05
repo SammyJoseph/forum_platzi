@@ -20,6 +20,12 @@
         </div>
     </div>
 
+    {{-- Respuestas --}}
+    @foreach ($replies as $reply)
+        {{-- Llamando a un componente de livewire y enviando el parámetro reply --}}
+        @livewire('show-reply', ['reply' => $reply], key('reply-' . $reply->id))
+    @endforeach
+
     {{-- Formulario de respuesta --}}
     <form wire:submit.prevent="postReply">
         <input type="text" 

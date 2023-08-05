@@ -17,7 +17,9 @@ class ShowThread extends Component
 
     public function render()
     {   
-        return view('livewire.show-thread');
+        $replies = $this->thread->replies()->get(); // se obtienen las respuestas de la pregunta
+        
+        return view('livewire.show-thread', compact('replies'));
     }
 
     public function postReply(){
@@ -27,7 +29,7 @@ class ShowThread extends Component
         ]);
 
         // crear
-        auth()->user()->replies()->create([
+        auth()->user()->replies()->create([ // replies() es la relación en el modelo User
             'thread_id' => $this->thread->id, // se obtiene el id del modelo inyectado
             'body' => $this->body
         ]);
