@@ -2,12 +2,12 @@
 
     {{-- Lista de categorías --}}
     <div class="w-64">
-        <a href="#" class="block w-full py-4 mb-10 bg-gradient-to-r from-blue-600 to-blue-700 hover:to-blue-600 text-white/90 font-bold text-xs text-center rounded-md">Preguntar</a>
+        <a href="#" class="block w-full py-4 mb-6 bg-gradient-to-r from-blue-600 to-blue-700 hover:to-blue-600 text-white/90 font-bold text-sm text-center rounded-md uppercase">Preguntar</a>
 
         <ul>
             @foreach ($categories as $category)
                 <li class="mb-2">
-                    <a href="#" class="p-2 rounded-md flex bg-slate-800 items-center gap-2 text-white/60 hover:text-white font-semibold text-xs capitalize">
+                    <a href="#" wire:click.prevent="filterByCategory({{ $category->id }})" class="p-2 rounded-md cursor-pointer flex bg-slate-800 items-center gap-2 text-white/60 hover:text-white font-semibold text-xs capitalize">
                         <span class="w-2 h-2 rounded-full" style="background-color: {{ $category->color }}"></span>
                         {{ $category->name }}
                     </a>
@@ -15,7 +15,7 @@
             @endforeach
             
             <li class="mb-2">
-                <a href="#" class="p-2 rounded-md flex bg-slate-800 items-center gap-2 text-white/60 hover:text-white font-semibold text-xs capitalize">
+                <a wire:click="filterByCategory('')" class="p-2 rounded-md cursor-pointer flex bg-slate-800 items-center gap-2 text-white/60 hover:text-white font-semibold text-xs capitalize">
                     <span class="w-2 h-2 rounded-full bg-white"></span>
                     Todas las categorías
                 </a>
@@ -25,13 +25,20 @@
 
     {{-- Contenido del foro --}}
     <div class="w-full">
-        <form action="" class="mb-4">
-            <x-text-input class="w-full" placeholder="Buscar..." wire:model="search">
-                <x-slot name="label">
-                    Buscar
-                </x-slot>
-            </x-text-input>
-        </form>
+        {{-- Input de búsqueda --}}
+        <div class="flex items-center gap-8 mb-4">
+            <form action="" class="flex-1">
+                <x-text-input class="w-full" placeholder="Buscar..." wire:model="search">
+                    <x-slot name="label">
+                        Buscar
+                    </x-slot>
+                </x-text-input>
+            </form>
+            <div class="">
+                <span class="text-white/80 text-xs">{{ $threadsCount }} resultados</span>
+            </div>
+        </div>
+        
 
         @if ($threads->isEmpty())
             <p class="text-white/90 italic text-sm">No se encontraron coincidencias.</p>
@@ -50,7 +57,7 @@
                             <p class="flex items-center justify-between w-full text-xs">
                                 <span class="text-blue-600 font-semibold">
                                     {{ $thread->user->name }}
-                                    <span class="text-sky-400">{{ $thread->created_at->diffForHumans() }}</span>
+                                    <span class="text-sky-400 ml-2">{{ $thread->created_at->diffForHumans() }}</span>
                                 </span>
                                 <span class="flex items-center gap-1 text-slate-700">
                                     <svg class="h-4" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
