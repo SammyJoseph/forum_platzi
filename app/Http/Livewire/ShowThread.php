@@ -13,8 +13,30 @@ class ShowThread extends Component
     /* La ruta /thread espera un parámetro /thread/{thread} */
     public Thread $thread; // inyección de dependencia
 
+    public $body = "";
+
     public function render()
     {   
         return view('livewire.show-thread');
+    }
+
+    public function postReply(){
+        // validar
+        $this->validate([
+            'body' => 'required|min:5'
+        ]);
+
+        // crear
+        auth()->user()->replies()->create([
+            'thread_id' => $this->thread->id, // se obtiene el id del modelo inyectado
+            'body' => $this->body
+        ]);
+
+        // refrescar
+        $this->body = "";
+
+        $this->thread = $this->thread->fresh(); // actualiza la instancia del modelo $thread
+
+        $this->emit('reply-posted'); // emite un evento para que sea escuchado por el componente padre
     }
 }

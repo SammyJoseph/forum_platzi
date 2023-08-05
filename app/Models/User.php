@@ -51,4 +51,9 @@ class User extends Authenticatable
     public function avatar(){
         return 'https://www.gravatar.com/avatar/'.md5($this->email).'?s=50';
     }
+
+    public function replies()
+    {
+        return $this->hasMany(Reply::class); // un usuario tiene muchas respuestas
+    }
 }
