@@ -3,7 +3,6 @@
 namespace App\Http\Livewire;
 
 use App\Models\Reply;
-use App\Models\Thread;
 use Livewire\Component;
 
 class ShowReply extends Component
@@ -11,6 +10,7 @@ class ShowReply extends Component
     public Reply $reply; // inyección de dependencia
     public $body = "";
     public $is_creating = false;
+    public $is_editing = false;
 
     protected $listeners = ['refresh' => '$refresh']; // para que se refresque el componente cuando se emita el evento
 
@@ -39,5 +39,30 @@ class ShowReply extends Component
         $this->is_creating = false;
         $this->body = "";
         $this->emitSelf('refresh'); // se emite el evento para que se refresque el componente
+    }
+
+    public function updateReply(){
+        // validar
+        $this->validate([
+            'body' => 'required|min:5'
+        ]);
+
+        // actualizar
+        $this->reply->update([
+            'body' => $this->body
+        ]);
+
+        // refrescar
+        $this->is_editing = false;
+    }
+
+    public function updatedIsEditing(){ // se ejecuta cuando se hace click en el botón de editar
+        $this->is_creating = false;
+        $this->body = $this->reply->body;
+    }
+
+    public function updatedIsCreating(){ // se ejecuta cuando se hace click en el botón de responder
+        $this->is_editing = false;
+        $this->body = "";
     }
 }
