@@ -16,4 +16,11 @@
             </div>
         </div>
     </div>
+
+    {{-- la relación replies() es una relación recursiva, por lo que podemos llamarla desde el mismo componente --}}
+    @foreach ($reply->replies as $item)
+        <div class="ml-8">
+            @livewire('show-reply', ['reply' => $item], key('reply-' . $item->id))
+        </div>
+    @endforeach
 </div>

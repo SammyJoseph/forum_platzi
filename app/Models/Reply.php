@@ -14,4 +14,8 @@ class Reply extends Model
     public function user(){
         return $this->belongsTo(User::class); // una respuesta pertenece a un usuario
     }
+
+    public function replies(){
+        return $this->hasMany(Reply::class); // una respuesta tiene muchas respuestas
+    }
 }
