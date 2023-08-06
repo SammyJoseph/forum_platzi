@@ -11,7 +11,7 @@
 
                     @include('thread.form')
 
-                    <input type="submit" value="Editar pregunta" class="w-full py-4 bg-gradient-to-r from-blue-600 to-blue-700 hover:to-blue-600 text-white/90 font-bold text-xs rounded-md">
+                    <input type="submit" value="Guardar cambios" class="w-full py-4 bg-gradient-to-r from-blue-600 to-blue-700 hover:to-blue-600 text-white/90 font-bold text-sm rounded-md cursor-pointer">
                 </form>
             </div>
         </div>
