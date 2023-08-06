@@ -29,6 +29,12 @@ class ShowThreads extends Component
 
         $threadsCount = $threads->count(); // conteo de preguntas (threads_count en la vista)
 
+        /* Sin el eager loading ($threads->with('user', 'category')), la consulta original solo recuperaría los hilos principales sin cargar las relaciones "user" y "category". 
+        Luego, cuando iteras a través de los hilos en la vista para mostrar la información del usuario y la categoría asociados a cada hilo,
+        Eloquent realizaría una consulta adicional por cada hilo para recuperar los datos de usuario y categoría,
+        lo que resultaría en muchas más consultas a la base de datos (una por hilo). */
+        $threads->with('user', 'category'); // eager loading (optimización de consultas)
+
         $threads->withCount('replies'); // agregamos el conteo de respuestas (replies_count en la vista)
         $threads->latest(); // ordenamos por fecha de creación
         $threads = $threads->get(); // obtenemos los resultados para enviarlo con compact

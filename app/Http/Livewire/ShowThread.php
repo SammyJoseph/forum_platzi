@@ -18,7 +18,9 @@ class ShowThread extends Component
     public function render()
     {   
         /* whereNull() es para obtener solo las respuestas que son padres ya que el campo reply_id en la bd solo tiene información cuando es una respuesta hija */
-        $replies = $this->thread->replies()->whereNull('reply_id')->latest()->get(); // se obtienen las respuestas de la pregunta
+        $replies = $this->thread->replies()->whereNull('reply_id')
+                    ->with('user', 'replies.user', 'replies.replies')
+                    ->latest()->get(); // se obtienen las respuestas de la pregunta
 
         $replies_count = $this->thread->replies()->count(); // conteo de respuestas de la pregunta
         
