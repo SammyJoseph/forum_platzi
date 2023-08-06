@@ -19,8 +19,10 @@ class ShowThread extends Component
     {   
         /* whereNull() es para obtener solo las respuestas que son padres ya que el campo reply_id en la bd solo tiene información cuando es una respuesta hija */
         $replies = $this->thread->replies()->whereNull('reply_id')->latest()->get(); // se obtienen las respuestas de la pregunta
+
+        $replies_count = $this->thread->replies()->count(); // conteo de respuestas de la pregunta
         
-        return view('livewire.show-thread', compact('replies'));
+        return view('livewire.show-thread', compact('replies', 'replies_count'));
     }
 
     public function postReply(){
