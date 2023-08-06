@@ -31,6 +31,9 @@ class ThreadController extends Controller
 
     public function edit(Thread $thread) // recibe el modelo Thread y lo busca por id
     {
+        /* se verifica que el usuario autenticado sea el mismo que creó la pregunta */
+        $this->authorize('update', $thread); // método update de ThreadPolicy
+
         $categories = Category::all();
 
         return view('thread.edit', compact('thread', 'categories'));
@@ -38,6 +41,9 @@ class ThreadController extends Controller
 
     public function update(Request $request, Thread $thread)
     {
+        /* se verifica que el usuario autenticado sea el mismo que creó la pregunta */
+        $this->authorize('update', $thread); // método update de ThreadPolicy
+
         $request->validate([
             'title' => 'required|min:5',
             'body' => 'required|min:5',
