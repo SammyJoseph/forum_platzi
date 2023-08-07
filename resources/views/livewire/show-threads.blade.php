@@ -82,5 +82,8 @@
                 </div>
             @endforeach
         @endif
+
+        {{-- Paginación --}}
+        {{ $threads->links() }}
     </div>
 </div>
