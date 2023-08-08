@@ -40,14 +40,19 @@ class ShowThreads extends Component
 
         $threads->withCount('replies'); // agregamos el conteo de respuestas (replies_count en la vista)
         $threads->latest(); // ordenamos por fecha de creación
-        $threads = $threads->paginate(5); // obtenemos los resultados para enviarlo con compact
+        $threads = $threads->paginate(4); // obtenemos los resultados para enviarlo con compact
 
         return view('livewire.show-threads', compact('categories', 'threads', 'threadsCount'));
     }
 
     public function filterByCategory($category)
     {   
-        $this->resetPage();
+        $this->updatingSearch();
         $this->category = $category;
+    }
+
+    public function updatingSearch()
+    {
+        $this->resetPage();
     }
 }
