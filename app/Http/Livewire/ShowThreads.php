@@ -51,8 +51,8 @@ class ShowThreads extends Component
         $this->category = $category;
     }
 
-    public function updatingSearch()
+    public function updatingSearch() // se ejecuta automáticamente cuando se modifica el valor de $search
     {
-        $this->resetPage();
+        $this->resetPage(); // resetea la paginación
     }
 }
