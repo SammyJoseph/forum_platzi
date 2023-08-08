@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ThreadController;
+use App\Http\Controllers\ThreadsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,7 +16,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', App\Http\Livewire\ShowThreads::class)->middleware(['auth', 'verified'])->name('dashboard');
+// Route::get('/', App\Http\Livewire\ShowThreads::class)->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/', [ThreadsController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 Route::get('/thread/{thread}', App\Http\Livewire\ShowThread::class)->middleware(['auth', 'verified'])->name('thread');
 
 Route::middleware('auth')->group(function () {

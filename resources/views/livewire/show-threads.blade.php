@@ -86,4 +86,5 @@
         {{-- Paginación --}}
         {{ $threads->links() }}
     </div>
+    
 </div>

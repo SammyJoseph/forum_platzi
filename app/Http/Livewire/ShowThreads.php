@@ -5,9 +5,12 @@ namespace App\Http\Livewire;
 use App\Models\Category;
 use App\Models\Thread;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class ShowThreads extends Component
 {   
+    use WithPagination;
+    
     public $search = "";
     public $category = "";
 
@@ -43,7 +46,8 @@ class ShowThreads extends Component
     }
 
     public function filterByCategory($category)
-    {
+    {   
+        $this->resetPage();
         $this->category = $category;
     }
 }
